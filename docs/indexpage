@@ -7,6 +7,7 @@ Data Params : None
 Response Codes: Success (200 OK), Bad Request (400)
 Response Body: Json of a list of photo infos sorted by like count of each photo. Example:
 
+```json
 [
 	{
 		"id": 17,
@@ -27,7 +28,7 @@ Response Body: Json of a list of photo infos sorted by like count of each photo.
 		"url": "https://s3-us-west-2.amazonaws.com/fatgoosebucket/1530557415115-WX20180607-152526.png"
 	}
 ]
-
+```
 
 --------------------------------------------------------------------------------------------------------------
 Function: Get a list of all events 
@@ -38,6 +39,7 @@ Data Params : None
 Response Codes: Success (200 OK), Bad Request (400)
 Response Body: Json of a list of event info. Example:
 
+```json
 [
 	{
 		"date": "2018-07-19 14:15:05.0",
@@ -52,4 +54,4 @@ Response Body: Json of a list of event info. Example:
 		"description": "rallycross"
 	}
 ]
-
+```
