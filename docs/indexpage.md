@@ -1,10 +1,16 @@
 --------------------------------------------------------------------------------------------------------------
 Function: Get a list of publicly available photos sorted by like count
+
 URL : /photo/publicsorted 
+
 Method : GET
+
 URL Params :  None 
+
 Data Params : None 
+
 Response Codes: Success (200 OK), Bad Request (400)
+
 Response Body: Json of a list of photo infos sorted by like count of each photo. Example:
 
 ```json
@@ -32,11 +38,17 @@ Response Body: Json of a list of photo infos sorted by like count of each photo.
 
 --------------------------------------------------------------------------------------------------------------
 Function: Get a list of all events 
+
 URL : /events 
+
 Method : GET
+
 URL Params :  None 
+
 Data Params : None 
+
 Response Codes: Success (200 OK), Bad Request (400)
+
 Response Body: Json of a list of event info. Example:
 
 ```json
