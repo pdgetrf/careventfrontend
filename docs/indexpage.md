@@ -58,7 +58,9 @@ Response Codes: Success (200 OK), Bad Request (400)
 Response Body: Json of a list of event info. Example:
 
 1. curl http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/events 
+
 or 
+
 curl http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/events?newOnly=false
 
 ```json
