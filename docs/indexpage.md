@@ -49,7 +49,7 @@ URL : /events
 
 Method : GET
 
-URL Params :  None 
+URL Params :  newOnly, not required, default to false. Retrieve new events only when true.
 
 Data Params : None 
 
@@ -57,20 +57,48 @@ Response Codes: Success (200 OK), Bad Request (400)
 
 Response Body: Json of a list of event info. Example:
 
+1. curl http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/events 
+or 
+curl http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/events?newOnly=false
+
 ```json
 {
   "data": [
     {
-      "date": "2018-07-20 00:07:57.0",
+      "date": "2018-07-20 20:07:28.0",
       "venue": "evergreen speedway",
       "name": "Evergreen Autocross",
       "description": "autocross"
     },
     {
-      "date": "2018-07-20 00:07:57.0",
+      "date": "2018-07-20 20:07:28.0",
       "venue": "Dirtfish Rally School",
       "name": "Rallycross Fest",
       "description": "rallycross"
+    },
+    {
+      "date": "2019-09-04 13:00:00.0",
+      "venue": "evergreen speedway",
+      "name": "Formula D",
+      "description": "drifting"
+    }
+  ],
+  "error": {
+    "canRetry": true,
+    "message": ""
+  }
+}
+```
+2. curl http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/events?newOnly=true
+
+```json
+{
+  "data": [
+    {
+      "date": "2019-09-04 13:00:00.0",
+      "venue": "evergreen speedway",
+      "name": "Formula D",
+      "description": "drifting"
     }
   ],
   "error": {
