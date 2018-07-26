@@ -67,22 +67,28 @@ curl http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/events?newOnl
 {
   "data": [
     {
-      "date": "2018-07-20 20:07:28.0",
+      "date": "2018-07-26 01:14:55.0",
       "venue": "evergreen speedway",
       "name": "Evergreen Autocross",
-      "description": "autocross"
+      "host": "Peng Du",
+      "description": "autocross",
+      "status": "CREATED"
     },
     {
-      "date": "2018-07-20 20:07:28.0",
+      "date": "2018-07-26 01:14:59.0",
       "venue": "Dirtfish Rally School",
       "name": "Rallycross Fest",
-      "description": "rallycross"
+      "host": "Peng Du",
+      "description": "rallycross",
+      "status": "CREATED"
     },
     {
-      "date": "2019-09-04 13:00:00.0",
+      "date": "2019-04-02 14:22:00.0",
       "venue": "evergreen speedway",
       "name": "Formula D",
-      "description": "drifting"
+      "host": "Peng Du",
+      "description": "test",
+      "status": "CREATED"
     }
   ],
   "error": {
@@ -97,10 +103,12 @@ curl http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/events?newOnl
 {
   "data": [
     {
-      "date": "2019-09-04 13:00:00.0",
+      "date": "2019-04-02 14:22:00.0",
       "venue": "evergreen speedway",
       "name": "Formula D",
-      "description": "drifting"
+      "host": "Peng Du",
+      "description": "test",
+      "status": "CREATED"
     }
   ],
   "error": {
