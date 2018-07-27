@@ -1,3 +1,3 @@
-import { unregister } from './index';
+import { unregister } from './index'
 
-unregister();
+unregister()

@@ -35,11 +35,11 @@
   },
   "prettier": {
     "printWidth": 120,
-    "tabWidth": 4,
+    "tabWidth": 2,
     "parser": "babylon",
     "trailingComma": "none",
     "jsxBracketSameLine": true,
-    "semi": true,
+    "semi": false,
     "singleQuote": true,
     "overrides": [
       {

@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
-import { Fade } from 'components/Transition';
-import Portal from 'components/Portal';
-import Loading from 'components/Loading';
-import './style.scss';
+import React, { Component, Fragment } from 'react'
+import { Fade } from 'components/Transition'
+import Portal from 'components/Portal'
+import Loading from 'components/Loading'
+import './style.scss'
 
 /**
  * @desc 对表单提供统一的逻辑处理
@@ -11,73 +11,73 @@ import './style.scss';
  *  可以参考登录模块
  */
 export default function(WrappedComponent) {
-    return class extends Component {
-        state = {
-            showToast: false,
-            showToastLoading: false,
-            errorMsg: null
-        };
+  return class extends Component {
+    state = {
+      showToast: false,
+      showToastLoading: false,
+      errorMsg: null
+    }
 
-        showToast = (error, timeout = 1500) =>
-            new Promise(resolve => {
-                const errorMsg = typeof error === 'string' ? error : error.message;
+    showToast = (error, timeout = 1500) =>
+      new Promise(resolve => {
+        const errorMsg = typeof error === 'string' ? error : error.message
 
-                this.setState({
-                    showToast: true,
-                    errorMsg
-                });
+        this.setState({
+          showToast: true,
+          errorMsg
+        })
 
-                clearTimeout(this.toastTimer);
+        clearTimeout(this.toastTimer)
 
-                //1s后清除显示
-                this.toastTimer = setTimeout(
-                    () =>
-                        this.setState(
-                            {
-                                showToast: false
-                            },
-                            resolve
-                        ),
-                    timeout
-                );
-            });
+        //1s后清除显示
+        this.toastTimer = setTimeout(
+          () =>
+            this.setState(
+              {
+                showToast: false
+              },
+              resolve
+            ),
+          timeout
+        )
+      })
 
-        showToastLoading = (loadingText = null) => {
-            this.setState({
-                loadingText,
-                showToastLoading: true
-            });
-        };
+    showToastLoading = (loadingText = null) => {
+      this.setState({
+        loadingText,
+        showToastLoading: true
+      })
+    }
 
-        hideToastLoading = () =>
-            this.setState({
-                showToastLoading: false
-            });
+    hideToastLoading = () =>
+      this.setState({
+        showToastLoading: false
+      })
 
-        render() {
-            const { showToast, showToastLoading, errorMsg, loadingText } = this.state;
-            return (
-                <Fragment>
-                    <WrappedComponent
-                        {...this.props}
-                        showToast={this.showToast}
-                        showToastLoading={this.showToastLoading}
-                        hideToastLoading={this.hideToastLoading}
-                    />
-                    <Fade in={showToast}>
-                        <Portal>
-                            <div className="gloabl-error-toast">{errorMsg}</div>
-                        </Portal>
-                    </Fade>
-                    <Fade in={showToastLoading}>
-                        <Portal>
-                            <div className="gloabl-loading-toast">
-                                <Loading>{loadingText}</Loading>
-                            </div>
-                        </Portal>
-                    </Fade>
-                </Fragment>
-            );
-        }
-    };
+    render() {
+      const { showToast, showToastLoading, errorMsg, loadingText } = this.state
+      return (
+        <Fragment>
+          <WrappedComponent
+            {...this.props}
+            showToast={this.showToast}
+            showToastLoading={this.showToastLoading}
+            hideToastLoading={this.hideToastLoading}
+          />
+          <Fade in={showToast}>
+            <Portal>
+              <div className="gloabl-error-toast">{errorMsg}</div>
+            </Portal>
+          </Fade>
+          <Fade in={showToastLoading}>
+            <Portal>
+              <div className="gloabl-loading-toast">
+                <Loading>{loadingText}</Loading>
+              </div>
+            </Portal>
+          </Fade>
+        </Fragment>
+      )
+    }
+  }
 }

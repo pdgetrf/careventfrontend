@@ -1,3 +1,3 @@
-import 'react-animated-router/animate.css';
+import 'react-animated-router/animate.css'
 
-export { default } from 'react-animated-router';
+export { default } from 'react-animated-router'

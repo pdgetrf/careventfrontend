@@ -1,1 +1,1 @@
-export const personalMenus = ['Account', 'Deposit', 'Withdraw', 'Invitation'];
+export const personalMenus = ['Account', 'Deposit', 'Withdraw', 'Invitation']

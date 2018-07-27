@@ -1,65 +1,65 @@
 /*eslint no-invalid-this: 0 */
-import React, { isValidElement, Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { isValidElement, Component } from 'react'
+import PropTypes from 'prop-types'
 
 class ModalContainer extends Component {
-    render() {
-        const { size, component: MyComponent, windowClass } = this.props;
-        //const MyComponent = component;
-        let classes = ['modal-container', `modal-${size}`];
+  render() {
+    const { size, component: MyComponent, windowClass } = this.props
+    //const MyComponent = component;
+    let classes = ['modal-container', `modal-${size}`]
 
-        if (windowClass) {
-            classes.push(windowClass);
-        }
-
-        return (
-            <div className={classes.join(' ')} ref="container">
-                {!MyComponent || isValidElement(MyComponent) ? MyComponent : <MyComponent {...this.props} />}
-            </div>
-        );
+    if (windowClass) {
+      classes.push(windowClass)
     }
 
-    eventHandler = ev => {
-        const { container } = this.refs;
+    return (
+      <div className={classes.join(' ')} ref="container">
+        {!MyComponent || isValidElement(MyComponent) ? MyComponent : <MyComponent {...this.props} />}
+      </div>
+    )
+  }
 
-        if (container != ev.target && !container.contains(ev.target)) {
-            if (ev.type == 'click') {
-                this.props.dismiss();
-            } else {
-                ev.preventDefault();
-            }
-        }
-    };
+  eventHandler = ev => {
+    const { container } = this.refs
 
-    getEvents() {
-        let events = [];
-        if (this.props.backdrop != 'static') {
-            events.push('click');
-        }
+    if (container != ev.target && !container.contains(ev.target)) {
+      if (ev.type == 'click') {
+        this.props.dismiss()
+      } else {
+        ev.preventDefault()
+      }
+    }
+  }
 
-        return events;
+  getEvents() {
+    let events = []
+    if (this.props.backdrop != 'static') {
+      events.push('click')
     }
 
-    componentDidMount() {
-        const element = this.refs.container.parentNode;
+    return events
+  }
 
-        this.getEvents().forEach(event => element.addEventListener(event, this.eventHandler, false));
-    }
+  componentDidMount() {
+    const element = this.refs.container.parentNode
 
-    componentWillUnmount() {
-        const element = this.refs.container.parentNode;
+    this.getEvents().forEach(event => element.addEventListener(event, this.eventHandler, false))
+  }
 
-        this.getEvents().forEach(event => element.removeEventListener(event, this.eventHandler, false));
-    }
+  componentWillUnmount() {
+    const element = this.refs.container.parentNode
 
-    static propTypes = {
-        component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
-        windowClass: PropTypes.string,
-        windowTopClass: PropTypes.string,
-        size: PropTypes.string.isRequired,
-        backdrop: PropTypes.oneOf([true, false, 'static']),
-        animation: PropTypes.oneOf(['fade', 'slide', 'zoom', false, true])
-    };
+    this.getEvents().forEach(event => element.removeEventListener(event, this.eventHandler, false))
+  }
+
+  static propTypes = {
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]),
+    windowClass: PropTypes.string,
+    windowTopClass: PropTypes.string,
+    size: PropTypes.string.isRequired,
+    backdrop: PropTypes.oneOf([true, false, 'static']),
+    animation: PropTypes.oneOf(['fade', 'slide', 'zoom', false, true])
+  }
 }
 
-export default ModalContainer;
+export default ModalContainer
