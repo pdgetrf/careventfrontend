@@ -1,16 +1,16 @@
+import { fetchEventList } from '../api/event'
 
 export default {
-
   namespace: 'event',
-
   state: {
     eventList: [],
-
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {  // eslint-disable-line
-      yield put({ type: 'save' })
+    *fetch({ payload }, { call, put }) {
+      const response = yield call(fetchEventList)
+      console.log('response', response)
+      yield put({ type: 'save', payload: { eventList: response } })
     },
   },
 

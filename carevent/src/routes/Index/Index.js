@@ -6,6 +6,14 @@ import Header from '../../components/Header'
 const { Content } = Layout
 
 class Index extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props
+
+    dispatch({
+      type: 'event/fetch',
+    })
+  }
+
   render() {
     return (
       <Layout>
@@ -16,4 +24,6 @@ class Index extends Component {
   }
 }
 
-export default connect()(Index)
+export default connect(({ event }) => ({
+  eventList: event.eventList,
+}))(Index)

@@ -22,7 +22,8 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-  return fetch(url, options)
+  const baseUrl = 'http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/'
+  return fetch(baseUrl + url, options)
     .then(checkStatus)
     .then(parseJSON)
     .then(data => ({ data }))
