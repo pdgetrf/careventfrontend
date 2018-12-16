@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Card } from "antd";
-import style from "../index.less";
+import React, { Component } from 'react'
+import { Card } from 'antd'
+import style from '../index.less'
 
-const { Meta } = Card;
+const { Meta } = Card
 
 class ImageCard extends Component {
   render() {
-    const { image } = this.props;
+    const { image } = this.props
     return (
       <div className={style.eventCard}>
         <Card
@@ -21,8 +21,8 @@ class ImageCard extends Component {
           </p>
         </Card>
       </div>
-    );
+    )
   }
 }
 
-export default ImageCard;
+export default ImageCard

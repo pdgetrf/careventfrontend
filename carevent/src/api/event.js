@@ -1,7 +1,7 @@
-import request from "../utils/request";
+import request from '../utils/request'
 
 export async function fetchEventList() {
-  return request("events", {
-    method: "get"
-  });
+  return request('events', {
+    method: 'get',
+  })
 }

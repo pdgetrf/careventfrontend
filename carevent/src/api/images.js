@@ -1,7 +1,7 @@
-import request from "../utils/request";
+import request from '../utils/request'
 
 export async function fetchPhotoPublicsorted() {
-  return request("photo/publicsorted", {
-    method: "get"
-  });
+  return request('photo/publicsorted', {
+    method: 'get',
+  })
 }

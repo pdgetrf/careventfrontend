@@ -1,21 +1,21 @@
-import { fetchPhotoPublicsorted } from "../api/images";
+import { fetchPhotoPublicsorted } from '../api/images'
 
 export default {
-  namespace: "images",
+  namespace: 'images',
   state: {
-    imagesPublicSorted: []
+    imagesPublicSorted: [],
   },
 
   effects: {
     *fetch({ payload }, { call, put }) {
-      const response = yield call(fetchPhotoPublicsorted);
-      yield put({ type: "save", payload: { imagesPublicSorted: response } });
-    }
+      const response = yield call(fetchPhotoPublicsorted)
+      yield put({ type: 'save', payload: { imagesPublicSorted: response } })
+    },
   },
 
   reducers: {
     save(state, action) {
-      return { ...state, ...action.payload };
-    }
-  }
-};
+      return { ...state, ...action.payload }
+    },
+  },
+}
