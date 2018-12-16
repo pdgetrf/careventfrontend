@@ -1,31 +1,25 @@
-import fetch from 'dva/fetch'
+import fetch from "dva/fetch";
 
 function parseJSON(response) {
-  return response.json()
+  return response.json();
 }
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
-    return response
+    return response;
   }
 
-  const error = new Error(response.statusText)
-  error.response = response
-  throw error
+  const error = new Error(response.statusText);
+  error.response = response;
+  throw error;
 }
 
-/**
- * Requests a URL, returning a promise.
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- * @return {object}           An object containing either "data" or "err"
- */
 export default function request(url, options) {
-  const baseUrl = 'http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/'
+  const baseUrl =
+    "http://ec2-18-191-255-17.us-east-2.compute.amazonaws.com:8080/";
   return fetch(baseUrl + url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }))
+    .then(data => data.data || data)
+    .catch(err => ({ err }));
 }

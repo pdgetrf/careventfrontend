@@ -1,23 +1,21 @@
-import { fetchEventList } from '../api/event'
+import { fetchEventList } from "../api/event";
 
 export default {
-  namespace: 'event',
+  namespace: "event",
   state: {
-    eventList: [],
+    eventList: []
   },
 
   effects: {
     *fetch({ payload }, { call, put }) {
-      const response = yield call(fetchEventList)
-      console.log('response', response)
-      yield put({ type: 'save', payload: { eventList: response } })
-    },
+      const response = yield call(fetchEventList);
+      yield put({ type: "save", payload: { eventList: response } });
+    }
   },
 
   reducers: {
     save(state, action) {
-      return { ...state, ...action.payload }
-    },
-  },
-
-}
+      return { ...state, ...action.payload };
+    }
+  }
+};

@@ -61,7 +61,7 @@
     "no-restricted-globals": [0],
     "react/jsx-boolean-value": [0],
     "require-yield": [1],
-    "compat/compat": "error"
+    "compat/compat": 0
   },
   "parserOptions": {
     "ecmaFeatures": {

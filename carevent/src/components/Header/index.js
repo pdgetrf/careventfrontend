@@ -1,19 +1,25 @@
-import React from 'react'
-import { connect } from 'dva'
-import { Icon, Input, Layout, Dropdown, Menu } from 'antd'
-import { Link } from 'dva/router'
-import styles from './index.less'
-import logo from '../../assets/logo.png'
+import React from "react";
+import { connect } from "dva";
+import { Icon, Input, Layout, Dropdown, Menu } from "antd";
+import { Link } from "dva/router";
+import styles from "./index.less";
+import logo from "../../assets/logo.png";
 
-const { Header } = Layout
-const { Search } = Input
+const { Header } = Layout;
+const { Search } = Input;
 
 function GlobalHeader() {
   const menu = (
-    <Menu className={styles.menu} selectedKeys={[]} onClick={() => console.log('logout')}>
-      <Menu.Item key="logout"><Icon type="logout" />退出登录</Menu.Item>
+    <Menu
+      className={styles.menu}
+      selectedKeys={[]}
+      onClick={() => console.log("logout")}
+    >
+      <Menu.Item key="logout">
+        <Icon type="logout" />退出登录
+      </Menu.Item>
     </Menu>
-  )
+  );
   return (
     <Header>
       <Link to="/" className={styles.logo} key="logo">
@@ -33,10 +39,9 @@ function GlobalHeader() {
         </Dropdown>
       </div>
     </Header>
-  )
+  );
 }
 
-GlobalHeader.propTypes = {
-}
+GlobalHeader.propTypes = {};
 
-export default connect()(GlobalHeader)
+export default connect()(GlobalHeader);
