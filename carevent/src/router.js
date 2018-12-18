@@ -2,11 +2,13 @@ import React from 'react'
 import { Router, Route, Switch } from 'dva/router'
 import EventPage from './routes/Events/Index'
 import LoginPage from './routes/Login/index'
+import IndexPage from './routes/index'
 
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
       <Switch>
+        <Route path="/" exact component={IndexPage} />
         <Route path="/events" exact component={EventPage} />
         <Route path="/login" exact component={LoginPage} />
       </Switch>
