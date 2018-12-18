@@ -12,6 +12,7 @@ class ImageCard extends Component {
         <Card
           hoverable
           style={{ width: 300 }}
+          bordered={false}
           cover={
             <img style={{ height: 240 }} alt={image.event} src={image.url} />
           }

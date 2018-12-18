@@ -16,7 +16,7 @@ class ImagesList extends Component {
     const { imagesPublicSorted } = this.props
     return (
       <div>
-        <Card title="Favorite Photos" style={{ margin: 8 }}>
+        <Card title="Favorite Photos" style={{ margin: 8 }} bordered={false}>
           {imagesPublicSorted.map((image) => (
             <ImageCard key={image.id} image={image} />
           ))}

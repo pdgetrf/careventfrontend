@@ -23,7 +23,7 @@ function GlobalHeader() {
   return (
     <Header>
       <Link to="/" className={styles.logo} key="logo">
-        <img src={logo} alt="logo" width="60" />
+        Logo
       </Link>
       <Search
         placeholder="input search text"

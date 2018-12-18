@@ -16,7 +16,7 @@ class EventList extends Component {
     const { eventList } = this.props
     return (
       <div>
-        <Card title="Upcoming Events" style={{ margin: 8 }}>
+        <Card title="Upcoming Events" style={{ margin: 8 }} bordered={false}>
           {eventList.map((event) => (
             <EventCard key={event.name} event={event} />
           ))}

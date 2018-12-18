@@ -13,6 +13,7 @@ class EventCard extends Component {
         <Card
           hoverable
           style={{ width: 300 }}
+          bordered={false}
           cover={
             <img
               style={{ height: 240 }}
