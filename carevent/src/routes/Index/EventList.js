@@ -17,10 +17,9 @@ class EventList extends Component {
     return (
       <div>
         <Card title="Upcoming Events" style={{ margin: 8 }}>
-          { eventList.map((event) => (
+          {eventList.map((event) => (
             <EventCard key={event.name} event={event} />
-            ))
-          }
+          ))}
         </Card>
       </div>
     )

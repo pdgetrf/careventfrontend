@@ -28,9 +28,7 @@ class EventCard extends Component {
             <div>
               {event.description} <em>{event.venue}</em>
             </div>
-            <div>{moment(event.date).format(
-                    'YYYY-MM-DD HH:mm',
-                  )}</div>
+            <div>{moment(event.date).format('YYYY-MM-DD HH:mm')}</div>
           </div>
         </Card>
       </div>
