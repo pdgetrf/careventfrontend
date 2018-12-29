@@ -8,7 +8,7 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(login)
+      const response = yield call(login, payload)
       yield put({ type: 'save', payload: { user: response } })
     },
   },

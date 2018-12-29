@@ -15,12 +15,10 @@ export default class LoginPage extends Component {
 
   handleSubmit = (err, values) => {
     if (!err) {
+      console.log('values', values)
       this.props.dispatch({
         type: 'login/login',
-        payload: {
-          authProvider: 'localauthconfig',
-          code: `${values.userName}:${values.password}`,
-        },
+        payload: values,
       })
     }
   }
@@ -50,7 +48,7 @@ export default class LoginPage extends Component {
             {login.status === 'error' &&
               submitting === false &&
               this.renderMessage(login.message || 'username or password error')}
-            <UserName name="userName" placeholder="username" />
+            <UserName name="username" placeholder="username" />
             <Password name="password" placeholder="password" />
             <Submit loading={submitting}>Login</Submit>
           </Login>
