@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Layout } from 'antd'
-import Header from '../../components/Header'
+import Header from '../../components/Header/index'
 import HeadImage from './HeadImage'
 import EventList from './EventList'
 import ImagesList from './ImagesList'

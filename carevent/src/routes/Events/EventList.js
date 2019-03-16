@@ -6,7 +6,6 @@ import EventCard from './EventCard'
 class EventList extends Component {
   componentDidMount() {
     const { dispatch } = this.props
-
     dispatch({
       type: 'event/fetch',
     })

@@ -8,33 +8,22 @@ const { Meta } = Card
 class EventCard extends Component {
   render() {
     const { event } = this.props
+    console.log({event});
     return (
       <div className={style.eventCard}>
-        <Card
-          hoverable
-          style={{ width: 300 }}
-          bordered={false}
-          cover={
-            <img
-              style={{ height: 240 }}
-              alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            />
-          }
-        >
-          <div className={style.cardFooter}>
-            <div>
-              {event.name} <em>{event.host}</em>
-            </div>
-            <div>
-              {event.description} <em>{event.venue}</em>
-            </div>
-            <div>{moment(event.date).format('YYYY-MM-DD HH:mm')}</div>
+        <div className={style.eventImg}>
+          <img src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+            <div class={style.eventDate} >{moment(event.date).format('MMM Do ')}</div>
           </div>
-        </Card>
+          <div className={style.cardFooter}>
+          <h3>{event.name}</h3>
+          <h4>{event.venue} - {event.description}</h4>
+          <h5>Hosted By: {event.host}</h5>
+          </div>
       </div>
     )
   }
 }
 
 export default EventCard
+
