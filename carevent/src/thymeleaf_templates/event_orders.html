@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order Management</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p1>Event Orders</p1>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Event</th>
+        <th>Photographer</th>
+        <th>Client</th>
+    </tr>
+    <tr th:each="eventOrder : ${eventOrders}">
+        <td><a th:text="${eventOrder.id}" th:href="@{|/eventorder/${eventOrder.id}|}"></a></td>
+        <td th:text="${eventOrder.registration.event.name}"></td>
+        <td th:text="${eventOrder.registration.photographer.name}"></td>
+        <td th:text="${eventOrder.client.name}"></td>
+    </tr>
+</table>
+</body>
+</html>

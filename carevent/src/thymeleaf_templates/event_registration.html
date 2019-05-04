@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Registration Management</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Photographer Registration</h1>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Event</th>
+        <th>Photographer</th>
+        <th>Allocation</th>
+        <th>Free Spot</th>
+        <th>Order Price (Unit)</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td th:text="${registration.id}"></td>
+        <td th:text="${registration.event.name}"></td>
+        <td th:text="${registration.photographer.name}"></td>
+        <td th:text="${registration.allocation}"></td>
+        <td th:text="${registration.allocation}-${registration.getSecuredOrders().size()}"></td>
+        <td th:text="${registration.orderCostSetting.getSpotFeeAmount()} + '(' + ${registration.orderCostSetting.getCurrency()} + ')'"></td>
+        <td th:text="${registration.status}"></td>
+    </tr>
+</table>
+<hr>
+<h2>Orders</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Client</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="order: ${registration.orders}">
+        <td><a th:text="${order.id}" th:href="@{|/eventorder/${order.id}|}"></a></td>
+        <td th:text="${order.client.name}"></td>
+        <td th:text="${order.getOrderStatus().name()}"></td>
+    </tr>
+</table>
+<hr>
+<h2 th:if="${isOwner}">You are the owner of the registration</h2>
+<h2 th:if="${hasOrdered and !isOwner}">You have an order with this registration</h2>
+<section th:if="${!hasOrdered and !isOwner}">
+    <h2>Create a new order</h2>
+    <form action="#" th:action="@{/eventorder/registration/{id}(id=${registration.id})}" th:object="${neweventorder}"
+          method="post">
+        <p>Name: <input type="hidden" th:id="client.name" th:name="client.name" th:value="${loggedInAs.name}"/></p>
+        <p>Description: <input type="text" th:field="*{client.description}"/></p>
+        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    </form>
+</section>
+<section th:if="${isOwner && notCancelled}">
+    <form th:action="@{/registration/cancel/{id}(id=${registration.id})}" method="post">
+        <input type="submit" value="Cancel Registration"/>
+    </form>
+</section>
+</body>
+</html>

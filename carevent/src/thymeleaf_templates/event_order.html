@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${pageTitle}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Event Order</h1>
+<a href="/">Home</a>
+<br>
+<a th:href="@{/registration/{regId}(regId=${eventOrder.getRegistration().id})}">Back to registration</a>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Event</th>
+        <th>Photographer</th>
+        <th>Client</th>
+        <th>Status</th>
+        <th th:if="${orderStale}">Cancelled by Client?</th>
+    </tr>
+    <tr>
+        <td th:text="${eventOrder.id}"></td>
+        <td th:text="${eventOrder.registration.event.name}"></td>
+        <td th:text="${eventOrder.registration.photographer.name}"></td>
+        <td th:text="${eventOrder.client.name}"></td>
+        <td th:text="${eventOrder.orderStatus}"></td>
+        <td th:if="${orderStale}" th:text="${eventOrder.orderStatusLastChangedByClient}"></td>
+    </tr>
+</table>
+<hr>
+<section th:if="${photoReady or isOwner}">
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Photo</th>
+            <th>Likes</th>
+        </tr>
+        <tr th:each="photo : ${photos}">
+            <td th:text="${photo.id}"></td>
+            <td><a th:href="@{/photo/review/{id}(id=${photo.id})}"/>
+                <img th:src="${photo.getImageUrl()}" style="width:200px;height:200px;">
+                </a>
+            </td>
+            <td th:text="${likeCounts[photo.id]}"></td>
+        </tr>
+    </table>
+</section>
+<hr>
+<form th:if="${!orderStale and isOwner}" action="#" th:action="@{/eventorder/uploadPhoto}" method="post"
+      enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*">
+    <input type="submit">
+</form>
+<br>
+<br>
+<section th:if="${isClient and orderPayable}">
+    <form th:action="@{/eventorder/payment/{id}(id=${eventOrder.id})}" method="post">
+        <input type="submit" value="Make Payment for Order"/>
+    </form>
+</section>
+<section th:if="${photoReady and isClient and orderPaid}">
+    <form th:action="@{/eventorder/download/{id}(id=${eventOrder.id})}" method="post">
+        <input type="submit" value="Download Photos"/>
+    </form>
+</section>
+<form th:if="${showCancelButton and (isClient or (orderStale and cancelledByClient))}"
+      th:action="@{/eventorder/cancel/{id}(id=${eventOrder.id})}" method="post">
+    <input type="submit" value="Cancel Order"/>
+</form>
+<form th:if="${orderClosed and isOwner}" th:action="@{/eventorder/delete/{id}(id=${eventOrder.id})}" method="post">
+    <input type="submit" value="Delete Order"/>
+</form>
+<section th:if="${isOwner and !orderStale}">
+    <p>Set Order Status</p>
+
+    <form action="#" th:action="@{/eventorder/{id}/status(id=${eventOrder.id})}" method="post">
+        <select name="selectedStatus">
+            <option th:each="status : ${statusList}"
+                    th:value="${status}"
+                    th:text="${status}"/>
+        </select>
+        <p><input type="submit" value="Set Status"/> <input type="reset" value="Reset"/></p>
+    </form>
+</section>
+</body>
+</html>

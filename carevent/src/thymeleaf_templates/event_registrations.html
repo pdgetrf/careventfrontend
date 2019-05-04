@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Management</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p1>Photographer Registrations</p1>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Event</th>
+        <th>Photographer</th>
+        <th>Allocation (Free spot)</th>
+        <th>Available Spot</th>
+        <th>Order Price (Unit)</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="registration: ${registrations}">
+        <td><a th:text="${registration.id}" th:href="@{|/registration/${registration.id}|}"></a></td>
+        <td th:text="${registration.event.name}"></td>
+        <td th:text="${registration.photographer.name}"></td>
+        <td th:text="${registration.allocation}"></td>
+        <td th:text="${registration.allocation}-${registration.getSecuredOrders().size()}"></td>
+        <td th:text="${registration.orderCostSetting.getSpotFeeAmount()} + '(' + ${registration.orderCostSetting.getCurrency()} + ')'"></td>
+        <td th:text="${registration.status}"></td>
+    </tr>
+</table>
+</body>
+</html>

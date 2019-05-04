@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create A new Event</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Create A new Event</h1>
+<br>
+<section th:if="${isLoggedIn}">
+    <hr>
+    <form action="#" th:action="@{/event}" th:object="${newEvent}" method="post" enctype="multipart/form-data">
+        <p>Name: <input type="text" th:field="*{name}"/></p>
+        <p>DATE: <input type="datetime-local" th:field="*{date}"/></p>
+        <p>Description: <input type="text" th:field="*{description}"/></p>
+        <p>Location:</p>
+        <select th:field="*{venue.name}">
+            <option th:each="venue: ${venues}"
+                    th:value="${venue}"
+                    th:text="${venue}"/>
+        </select>
+        <p>URL: <input type="text" th:field="*{externalURL}"/></p>
+        <p><input type="hidden" th:id="creater.loginName" th:name="creater.loginName"
+                  th:value="${loggedInAs.loginName}"/></p>
+        <input type="file" name="file" accept="image/*">
+        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    </form>
+    <br>
+    <hr>
+</section>
+</body>
+</html>

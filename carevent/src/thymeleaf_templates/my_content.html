@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Account</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<a href="/">Home</a>
+<br>
+<br>
+<span th:text="${'Welcome ' + userName}"></span>
+<br>
+<section th:if="${hasIconPhoto}">
+    <img th:src="${userIcon}" style="height:100px;">
+</section>
+<br>
+<p2>My Orders as a Photographer</p2>
+<br/>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Event</th>
+        <th>Photographer</th>
+        <th>Client</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="eventOrder : ${orderAsOwner}">
+        <td><a th:text="${eventOrder.id}" th:href="@{|/eventorder/${eventOrder.id}|}"></a></td>
+        <td th:text="${eventOrder.registration.event.name}"></td>
+        <td th:text="${eventOrder.registration.photographer.name}"></td>
+        <td th:text="${eventOrder.client.name}"></td>
+        <td th:text="${eventOrder.orderStatus}"></td>
+    </tr>
+</table>
+<br/>
+<p2>My Orders as a Client</p2>
+<br/>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Event</th>
+        <th>Photographer</th>
+        <th>Client</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="eventOrder : ${orderAsClient}">
+        <td><a th:text="${eventOrder.id}" th:href="@{|/eventorder/${eventOrder.id}|}"></a></td>
+        <td th:text="${eventOrder.registration.event.name}"></td>
+        <td th:text="${eventOrder.registration.photographer.name}"></td>
+        <td th:text="${eventOrder.client.name}"></td>
+        <td th:text="${eventOrder.orderStatus}"></td>
+    </tr>
+</table>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="submit" value="log out"/>
+</form>
+</body>
+</html>

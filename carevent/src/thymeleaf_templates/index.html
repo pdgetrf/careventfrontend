@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Hire My Spot</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<!--<span th:text="${#authorization.expression('isAuthenticated()')} ?
+               'the user ' + ${#request.getUserPrincipal().name} + ' is logged in' :
+               'the user is NOT logged in'">
+</span>-->
+<section th:if="${isLoggedIn}">
+    <h2>Welcome <a th:text="${loggedInAs.name}" href="/user/me"/></h2>
+</section>
+<section th:if="!${isLoggedIn}">
+    <h2>Hello!</h2>
+</section>
+<section th:if="!${isLoggedIn}">
+    <br>
+    <hr>
+    <form th:action="@{/user/login}">
+        <input type="submit" value="Login"/>
+    </form>
+    <form th:action="@{/user/signup}">
+        <input type="submit" value="Register"/>
+    </form>
+</section>
+<br>
+<hr>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Venue</th>
+        <th>Host</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="event : ${events}">
+        <td><a th:text="${event.id}" th:href="@{|/event/${event.id}|}"></a></td>
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.date}"></td>
+        <td th:text="${event.description}"></td>
+        <td th:text="${event.venue.name}"></td>
+        <td th:text="${event.creater.name}"></td>
+        <td th:text="${event.status}"></td>
+    </tr>
+</table>
+<section th:if="${isLoggedIn}">
+    <br>
+    <a href="/event/new">Create a new event</a>
+    <br>
+</section>
+<br>
+<br>
+<section th:if="${isLoggedIn}">
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="submit" value="log out"/>
+    </form>
+</section>
+<hr>
+<h2>Favorite Photos</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Photo</th>
+        <th>Likes</th>
+        <th>Event</th>
+    </tr>
+    <tr th:each="photo : ${photosByLikes}">
+        <td th:text="${photo.id}"></td>
+        <td><a th:href="@{/photo/review/{id}(id=${photo.id})}"/>
+            <img th:src="${photo.getImageUrl()}" style="width:200px;height:200px;">
+            </a>
+        </td>
+        <td th:text="${likeCounts[photo.id]}"></td>
+        <td><a th:href="@{/event/{eventId}(eventId=${photo.eventOrder.registration.event.id})}"
+               th:text="${photo.eventOrder.registration.event.name}"/></td>
+    </tr>
+</table>
+</body>
+</html>
