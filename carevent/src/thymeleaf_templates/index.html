@@ -4,82 +4,84 @@
 <head>
     <title>Hire My Spot</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<!--<span th:text="${#authorization.expression('isAuthenticated()')} ?
-               'the user ' + ${#request.getUserPrincipal().name} + ' is logged in' :
-               'the user is NOT logged in'">
-</span>-->
-<section th:if="${isLoggedIn}">
-    <h2>Welcome <a th:text="${loggedInAs.name}" href="/user/me"/></h2>
-</section>
-<section th:if="!${isLoggedIn}">
-    <h2>Hello!</h2>
-</section>
-<section th:if="!${isLoggedIn}">
-    <br>
-    <hr>
-    <form th:action="@{/user/login}">
-        <input type="submit" value="Login"/>
-    </form>
-    <form th:action="@{/user/signup}">
-        <input type="submit" value="Register"/>
-    </form>
-</section>
-<br>
-<hr>
-<table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Venue</th>
-        <th>Host</th>
-        <th>Status</th>
-    </tr>
-    <tr th:each="event : ${events}">
-        <td><a th:text="${event.id}" th:href="@{|/event/${event.id}|}"></a></td>
-        <td th:text="${event.name}"></td>
-        <td th:text="${event.date}"></td>
-        <td th:text="${event.description}"></td>
-        <td th:text="${event.venue.name}"></td>
-        <td th:text="${event.creater.name}"></td>
-        <td th:text="${event.status}"></td>
-    </tr>
-</table>
-<section th:if="${isLoggedIn}">
-    <br>
-    <a href="/event/new">Create a new event</a>
-    <br>
-</section>
-<br>
-<br>
-<section th:if="${isLoggedIn}">
-    <form th:action="@{/logout}" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        <input type="submit" value="log out"/>
-    </form>
-</section>
-<hr>
-<h2>Favorite Photos</h2>
-<table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Photo</th>
-        <th>Likes</th>
-        <th>Event</th>
-    </tr>
-    <tr th:each="photo : ${photosByLikes}">
-        <td th:text="${photo.id}"></td>
-        <td><a th:href="@{/photo/review/{id}(id=${photo.id})}"/>
-            <img th:src="${photo.getImageUrl()}" style="width:200px;height:200px;">
-            </a>
-        </td>
-        <td th:text="${likeCounts[photo.id]}"></td>
-        <td><a th:href="@{/event/{eventId}(eventId=${photo.eventOrder.registration.event.id})}"
-               th:text="${photo.eventOrder.registration.event.name}"/></td>
-    </tr>
-</table>
+    <!--<span th:text="${#authorization.expression('isAuthenticated()')} ?
+        'the user ' + ${#request.getUserPrincipal().name} + ' is logged in' :
+        'the user is NOT logged in'">
+    </span>-->
+    <header th:if="${isLoggedIn}">
+        <div class="container flexbox align-center space-between">
+            <h1><img src="../assets/logo.png" alt="Car Logo" height="50"/></h1>
+            <span class="username flexbox align-center" th:if="${isLoggedIn}">
+                <h5 class="name">Welcome <a th:text="${loggedInAs.name}" href="/user/me">${loggedInAs.name}</a></h5>
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button class="btn" type="submit">Log Out</button>
+                </form>
+            </span>
+            <span class="buttons" th:if="!${isLoggedIn}">
+                <form th:action="@{/user/login}">
+                    <button class="btn" type="submit">Login</button>
+                </form>
+                <form th:action="@{/user/signup}">
+                    <button class="btn" type="submit">Register</button>
+                </form>
+            </span>
+        </div>
+    </header>
+    <section class="table">
+        <div class="container">
+            <h3 class="section-title">Upcoming Events</h3>
+            <ul class="head">
+                <li>Id</li>
+                <li>Name</li>
+                <li>Date</li>
+                <li>Description</li>
+                <li>Venue</li>
+                <li>Host</li>
+                <li>Status</li>
+            </ul>
+            <ul th:each="event : ${events}">
+                <li><a th:text="${event.id}" th:href="@{|/event/${event.id}|}"></a></li>
+                <li th:text="${event.name}"></li>
+                <li th:text="${event.date}"></li>
+                <li th:text="${event.description}"></li>
+                <li th:text="${event.venue.name}"></li>
+                <li th:text="${event.creater.name}"></li>
+                <li th:text="${event.status}"></li>
+            </ul>
+        </div>
+    </section>
+    <section th:if="${isLoggedIn}">
+        <div class="container">
+            <a class="btn" href="/event/new">Create a new event</a>
+        </div>
+    </section>
+    <section id="favourite_photos">
+        <div class="container">
+            <h3 class="section-title">My Favourite Photos</h3>
+            <ul class="flexbox wrap ">
+                <li th:each="photo : ${photosByLikes}">
+                    <img th:src="${photo.getImageUrl()}">
+                    <div class="overlay">
+                        <h5><a th:href="@{/photo/review/{id}(id=${photo.id})}"  th:text="${photo.eventOrder.registration.event.name}"></a></h5>
+                        <h6><span th:text="${likeCounts[photo.id]}"></span> Likes</h6>
+                        <a th:href="@{/event/{eventId}(eventId=${photo.eventOrder.registration.event.id})}"
+                        th:text="${photo.eventOrder.registration.event.name}"></a>
+                    </div>
+                </li>               
+            </ul>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <nav>
+                <a href="">Privacy Policy</a>
+                <a href="">Terms & Conditions</a>
+            </nav>
+        </div>
+    </footer>
 </body>
 </html>

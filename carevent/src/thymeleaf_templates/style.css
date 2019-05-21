@@ -1,0 +1,190 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+v2.0 | 20110126
+License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+:root {
+    --mid-blue: #1D429B;
+    --dark-blue: #222D47;
+    --light-grey: #BAC6E2;
+    --mid-grey: #96A0B7;
+    --dark-grey: #000000;
+}
+
+/* Typography */
+h1 {font-size: 40px}
+h2 {font-size: 34px}
+h3 {font-size: 30px}
+h4 {font-size: 28px}
+h5 {font-size: 24px}
+h6 {font-size: 18px}
+p {font-size: 15px}
+
+/* Layout */
+body {
+    font-family: 'Arial';
+}
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+.container::after {
+    clear: both;
+    content: '';
+    display: table;
+}
+.flexbox {
+    display: flex;
+}
+.flexbox.wrap {
+    flex-wrap: wrap;
+}
+.flexbox.space-between {
+    justify-content: space-between;
+}
+.flexbox.align-center {
+    align-items: center;
+}
+.btn {
+    border: 0;
+    outline: 0;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 9px;
+    background: var(--mid-grey);
+    text-decoration: none;
+    transition: all ease 0.3s;
+}
+.btn:hover {
+    background: var(--dark-grey);;
+}
+.section-title {
+    margin-bottom: 40px
+}
+header {
+    padding: 20px 0;
+    background: var(--dark-blue);
+}
+header form {
+    display: inline-block;
+}
+header .name {
+    color: #fff;
+    margin-right: 20px;
+    display: inline-block;
+}
+header .name a {
+    color: inherit;
+    text-decoration: none;
+}
+.table {
+    padding: 40px 0;
+}
+.table ul {
+    list-style-type: none;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+.table ul:nth-child(odd) {
+    background: #ccc;
+}
+.table li {
+    width: 50%;
+    color: #333;
+    padding: 3px 10px;
+    display: table-cell;
+    text-decoration: none;
+}
+ul.head li {
+    font-size: 22px;
+}
+#favourite_photos {
+    padding: 40px 0;
+}
+#favourite_photos h5 ,
+#favourite_photos h6 {
+    color: #fff;
+}
+#favourite_photos h6 {
+    font-size: 12px;
+    text-align: right;
+}
+#favourite_photos li {
+    width: 19%;
+    height: 200px;
+    margin: 0 1% 20px;
+    position: relative;
+    border: 1px solid #ccc;
+}
+#favourite_photos img {
+    width: 100%;
+    object-fit: cover;
+    height: -webkit-fill-available;
+}
+#favourite_photos .overlay {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 5%;
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+}
+footer {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 30px 0;
+    position: absolute;
+    background: var(--mid-grey);
+}
+footer nav {
+    float: right;
+    display: inline-block;
+}
+footer nav a {
+    color: var(--dark-grey);
+}
