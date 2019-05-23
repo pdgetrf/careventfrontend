@@ -11,7 +11,7 @@
         'the user ' + ${#request.getUserPrincipal().name} + ' is logged in' :
         'the user is NOT logged in'">
     </span>-->
-    <header th:if="${isLoggedIn}">
+    <header>
         <div class="container flexbox align-center space-between">
             <h1><img src="../assets/logo.png" alt="Car Logo" height="50"/></h1>
             <span class="username flexbox align-center" th:if="${isLoggedIn}">
