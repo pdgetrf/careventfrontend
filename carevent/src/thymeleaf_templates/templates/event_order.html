@@ -27,6 +27,21 @@
         <td th:if="${orderStale}" th:text="${eventOrder.orderStatusLastChangedByClient}"></td>
     </tr>
 </table>
+<h2>Target</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Description</th>
+        <th>Photo</th>
+    </tr>
+    <tr>
+        <td th:text="${orderTarget.id}"></td>
+        <td th:text="${orderTarget.description}"></td>
+        <td>
+            <img th:src="${orderTargetPhotoUrl}" style="width:200px;height:200px;">
+        </td>
+    </tr>
+</table>
 <hr>
 <section th:if="${photoReady or isOwner}">
     <table border="1">
@@ -46,7 +61,7 @@
     </table>
 </section>
 <hr>
-<form th:if="${!orderStale and isOwner}" action="#" th:action="@{/eventorder/uploadPhoto}" method="post"
+<form th:if="${!orderStale and isOwner}" action="#" th:action="@{/eventorder/uploadPhoto/{id}(id=${eventOrder.id})}" method="post"
       enctype="multipart/form-data">
     <input type="file" name="file" accept="image/*">
     <input type="submit">

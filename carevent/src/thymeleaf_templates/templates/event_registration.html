@@ -43,14 +43,19 @@
 <hr>
 <h2 th:if="${isOwner}">You are the owner of the registration</h2>
 <h2 th:if="${hasOrdered and !isOwner}">You have an order with this registration</h2>
-<section th:if="${!hasOrdered and !isOwner}">
+<section th:if="${!hasOrdered and !isOwner and registerOpen}">
+    <h2>Order closing in <a th:text="${registrationClosureHour}"/> hours</h2>
     <h2>Create a new order</h2>
     <form action="#" th:action="@{/eventorder/registration/{id}(id=${registration.id})}" th:object="${neweventorder}"
-          method="post">
+          method="post" enctype="multipart/form-data">
         <p>Name: <input type="hidden" th:id="client.name" th:name="client.name" th:value="${loggedInAs.name}"/></p>
-        <p>Description: <input type="text" th:field="*{client.description}"/></p>
+        <p>Description: <input type="text" name="desc"/></p>
+        <p>Car photo: <input type="file" name="file" accept="image/*"/></p>
         <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
     </form>
+</section>
+<section th:if="${!registerOpen}">
+    <p2>Order request closed</p2>
 </section>
 <section th:if="${isOwner && notCancelled}">
     <form th:action="@{/registration/cancel/{id}(id=${registration.id})}" method="post">

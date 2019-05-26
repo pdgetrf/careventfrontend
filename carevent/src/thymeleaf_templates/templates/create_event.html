@@ -12,6 +12,7 @@
     <form action="#" th:action="@{/event}" th:object="${newEvent}" method="post" enctype="multipart/form-data">
         <p>Name: <input type="text" th:field="*{name}"/></p>
         <p>DATE: <input type="datetime-local" th:field="*{date}"/></p>
+        <p>Registration Closure Hours: <input type="number" min="0" max="72" th:field="*{registrationClosureHours}"/></p>
         <p>Description: <input type="text" th:field="*{description}"/></p>
         <p>Location:</p>
         <select th:field="*{venue.name}">

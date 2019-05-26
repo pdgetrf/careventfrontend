@@ -29,5 +29,11 @@ Reviews
         <td th:text="${review.getReviewer().getName()}"></td>
     </tr>
 </table>
+<section th:if="${isLoggedIn and isOwner}">
+<hr>
+<form th:action="@{/photo/delete/{id}(id=${photo.id})}" method="post">
+    <input type="submit" value="Delete"/>
+</form>
+</section>
 </body>
 </html>

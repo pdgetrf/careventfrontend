@@ -56,9 +56,13 @@
         <td th:text="${registration.status}"></td>
     </tr>
 </table>
-<section th:if="${isLoggedIn}">
+<section th:if="${isLoggedIn and !registerOpen}">
+    <p2>Photographer Registration Closed</p2>
+</section>
+<section th:if="${isLoggedIn and registerOpen}">
     <hr>
     <p2>Create a new registration</p2>
+    <h2>Registration closing in <a th:text="${registrationClosureHour}"/> hours</h2>
     <section th:if="${canSelfRegister}">
         <form action="#" th:action="@{/registration/event/{id}(id=${event.id})}" th:object="${newregistration}"
               method="post">
