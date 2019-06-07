@@ -3,37 +3,47 @@
 <head>
     <title>Photo Review</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/style.css"/> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h2>Photo Review</h2>
-<br>
-<br>
-<img th:src="${photo.getImageUrl()}" style="width:400px;">
-<br>
-<form action="#" th:action="@{/photo/review/{id}(id=${photo.id})}" th:object="${newreview}" method="post">
-    <p>Like? <input type="checkbox" th:field="*{isLike}"/></p>
-    <p>Description: <input type="text" th:field="*{comment}"/></p>
-    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-</form>
-<hr>
-Reviews
-<table border="1">
-    <tr>
-        <th>Like?</th>
-        <th>Comment</th>
-        <th>By</th>
-    </tr>
-    <tr th:each="review : ${reviews}">
-        <td th:text="${review.isLike}"></td>
-        <td th:text="${review.comment}"></td>
-        <td th:text="${review.getReviewer().getName()}"></td>
-    </tr>
-</table>
-<section th:if="${isLoggedIn and isOwner}">
-<hr>
-<form th:action="@{/photo/delete/{id}(id=${photo.id})}" method="post">
-    <input type="submit" value="Delete"/>
-</form>
-</section>
+    <header>
+        <div class="container flexbox align-center">
+            <h1><img src="../static/img/logo.png" alt="Car Logo" height="50"/></h1>
+            <h2>Photo Review</h2>
+        </div>
+    </header>
+    <section id="photo-review">
+        <div class="container">
+            <img th:src="${photo.getImageUrl()}" style="width:400px;">
+            <form action="#" th:action="@{/photo/review/{id}(id=${photo.id})}" th:object="${newreview}" method="post">
+                <div><label>Like:</label><input type="checkbox" th:field="*{isLike}"/></div>
+                <div><label>Description:</label> <input type="text" th:field="*{comment}"/></div>
+                <div><button class="btn" type="submit" >Submit</button> <button class="btn" type="reset">Reset</button></div>
+            </form>
+        </div>
+    </section>
+    <section id="photo-reviews">
+        <div class="container table">
+            <h3>Reviews</h3>
+            <ul class="head">
+                <li>Like</li>
+                <li>Comment</li>
+                <li>By</li>
+            </ul>
+            <ul th:each="review : ${reviews}">
+                <li th:text="${review.isLike}"></li>
+                <li th:text="${review.comment}"></li>
+                <li th:text="${review.getReviewer().getName()}"></li>
+            </ul>
+        </div>
+    </section>
+    <section th:if="${isLoggedIn and isOwner}">
+        <div class="container">
+            <form th:action="@{/photo/delete/{id}(id=${photo.id})}" method="post">
+                <button type="submit" class="btn">Delete Photo</button>
+            </form>
+        </div>
+    </section>
 </body>
 </html>

@@ -4,6 +4,7 @@
 <head>
     <title>Hire My Spot</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/style.css"/> -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -13,7 +14,7 @@
     </span>-->
     <header>
         <div class="container flexbox align-center space-between">
-            <h1><img src="../assets/logo.png" alt="Car Logo" height="50"/></h1>
+            <h1><img src="../static/img/logo.png" alt="Car Logo" height="50"/></h1>
             <span class="username flexbox align-center" th:if="${isLoggedIn}">
                 <h5 class="name">Welcome <a th:text="${loggedInAs.name}" href="/user/me">${loggedInAs.name}</a></h5>
                 <form th:action="@{/logout}" method="post">
@@ -43,7 +44,7 @@
                 <li>Host</li>
                 <li>Status</li>
             </ul>
-            <ul th:each="event : ${events}">
+            <ul th:each="event : ${events}" class="flexbox align-center">
                 <li><a th:text="${event.id}" th:href="@{|/event/${event.id}|}"></a></li>
                 <li th:text="${event.name}"></li>
                 <li th:text="${event.date}"></li>

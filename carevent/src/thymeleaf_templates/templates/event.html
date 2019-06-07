@@ -3,104 +3,111 @@
 <head>
     <title>Event Management</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/style.css"/> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Event</h1>
-<a href="/">Home</a>
-<br>
-<section th:if="${isLoggedIn}">
-    <h2 th:text="${'Hello '+ loggedInAs.name}"></h2>
-</section>
-<br>
-<section th:if="${hasIconPhoto}">
-    <img th:src="${eventIcon}" style="height:300px;">
-</section>
-<br>
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Venue</th>
-        <th>Host</th>
-        <th>Status</th>
-    </tr>
-    <tr>
-        <td th:text="${event.name}"></td>
-        <td th:text="${event.date}"></td>
-        <td th:text="${event.venue.name}"></td>
-        <td th:text="${event.creater.name}"></td>
-        <td th:text="${event.status}"></td>
-    </tr>
-</table>
-<br/>
-<hr>
-<br/>
-<b>Registrations</b>
-<table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Event</th>
-        <th>Photographer</th>
-        <th>Allocation</th>
-        <th>Available Spots</th>
-        <th>Order Price (Unit)</th>
-        <th>Status</th>
-    </tr>
-    <tr th:each="registration: ${event.registrations}">
-        <td><a th:text="${registration.id}" th:href="@{|/registration/${registration.id}|}"></a></td>
-        <td th:text="${registration.event.name}"></td>
-        <td th:text="${registration.photographer.name}"></td>
-        <td th:text="${registration.allocation}"></td>
-        <td th:text="${registration.allocation}-${registration.getSecuredOrders().size()}"></td>
-        <td th:text="${registration.orderCostSetting.getSpotFeeAmount()} + '(' + ${registration.orderCostSetting.getCurrency()} + ')'"></td>
-        <td th:text="${registration.status}"></td>
-    </tr>
-</table>
-<section th:if="${isLoggedIn and !registerOpen}">
-    <p2>Photographer Registration Closed</p2>
-</section>
-<section th:if="${isLoggedIn and registerOpen}">
-    <hr>
-    <p2>Create a new registration</p2>
-    <h2>Registration closing in <a th:text="${registrationClosureHour}"/> hours</h2>
-    <section th:if="${canSelfRegister}">
-        <form action="#" th:action="@{/registration/event/{id}(id=${event.id})}" th:object="${newregistration}"
-              method="post">
-            <p>Register Myself</p>
-            <p><input type="hidden" th:id="photographer.name" th:name="photographer.name"
-                      th:value="${loggedInAs.name}"/></p>
-            <p>Allocation: <input type="text" th:field="*{allocation}" th:value="5"/></p>
-            <p>Order price Amount: <input type="text" th:field="*{orderCostSetting.spotFeeAmount}" th:value="5"/></p>
-            <p>Order price in: <input type="text" th:field="*{orderCostSetting.currency}" th:value="5"/></p>
-            <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-        </form>
-        <br>
-        <hr>
+    <header>
+        <div class="container flexbox align-center">
+            <h1><a href="/"><img src="../static/img/logo.png" alt="Car Logo" height="50"/></a></h1>
+            <h2>Event</h2>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button class="btn" type="submit">Log Out</button>
+            </form>
+        </div>
+    </header>
+    <section th:if="${hasIconPhoto}">
+        <div class="container">
+            <img th:src="${eventIcon}" style="height:300px;">
+        </div>
     </section>
-    <p>Invite a photographer</p>
-    <form action="#" th:action="@{/registration/event/{id}(id=${event.id})}" th:object="${newregistration}"
-          method="post">
+    <section id="event">
+        <div class="container table">
+            <ul class="head">
+                <li>Name</li>
+                <li>Date</li>
+                <li>Venue</li>
+                <li>Host</li>
+                <li>Status</li>
+            </ul>
+            <ul class="flexbox align-center">
+                <li th:text="${event.name}"></li>
+                <li th:text="${event.date}"></li>
+                <li th:text="${event.venue.name}"></li>
+                <li th:text="${event.creater.name}"></li>
+                <li th:text="${event.status}"></li>
+            </ul>
+        </div>
+    </section>
+    <section id="registrations">
+        <div class="container table">
+            <h3>Event Registrations</h3>
+            <ul class="head">
+                <li>Id</li>
+                <li>Event</li>
+                <li>Photographer</li>
+                <li>Allocation</li>
+                <li>Available Spots</li>
+                <li>Order Price (Unit)</li>
+                <li>Status</li>
+            </ul>
+            <ul th:each="registration: ${event.registrations}" class="flexbox align-center">
+                <li><a th:text="${registration.id}" th:href="@{|/registration/${registration.id}|}"></a></li>
+                <li th:text="${registration.event.name}"></li>
+                <li th:text="${registration.photographer.name}"></li>
+                <li th:text="${registration.allocation}"></li>
+                <li th:text="${registration.allocation}-${registration.getSecuredOrders().size()}"></li>
+                <li th:text="${registration.orderCostSetting.getSpotFeeAmount()} + '(' + ${registration.orderCostSetting.getCurrency()} + ')'"></li>
+                <li th:text="${registration.status}"></li>
+            </ul>
+        </div>
+    </section>
+    <section th:if="${isLoggedIn and !registerOpen}">
+        <div class="container">
+            <h2>Photographer Registration Closed</h2>
+        </div>
+    </section>
+    <section th:if="${isLoggedIn and registerOpen}">
+        <div class="container">
+            <h3>Register as an Attending Photographer</h3>
+            <h5>Registration closing in <a th:text="${registrationClosureHour}"/> hours</h5>
+            <div th:if="${canSelfRegister}">
+                <form action="#" th:action="@{/registration/event/{id}(id=${event.id})}" th:object="${newregistration}"
+                method="post">
+                <input type="hidden" th:id="photographer.name" th:name="photographer.name" th:value="${loggedInAs.name}"/>
+                <label>Available Spots: </label>
+                <input type="text" th:field="*{allocation}" th:value="5"/>
+                <label>Order price Amount: </label>
+                <input type="text" th:field="*{orderCostSetting.spotFeeAmount}" th:value="5"/>
+                <label>Order price in: </label>
+                <input type="text" th:field="*{orderCostSetting.currency}" th:value="5"/>
+                <button type="submit" class="btn">Submit</button> 
+                <button type="reset" class="btn">Reset</button> 
+            </form>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <h3>Invite a photographer</h3>
+        <form action="#" th:action="@{/registration/event/{id}(id=${event.id})}" th:object="${newregistration}"
+        method="post">
         <select th:field="*{photographer.name}">
             <option th:each="photographer : ${photographers}"
-                    th:value="${photographer.name}"
-                    th:text="${photographer.name}"/>
+            th:value="${photographer.name}"
+            th:text="${photographer.name}"/>
         </select>
-        <p>Allocation: <input type="text" th:field="*{allocation}"/></p>
-        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+        <button type="submit" class="btn">Submit</button> 
     </form>
-    <section th:if="${canCancel}">
-        <br>
-        <hr>
+</div>
+</section>
+<section th:if="${canCancel}">
+    <div class="container">
         <form th:action="@{/event/cancel/{id}(id=${event.id})}" method="post">
-            <input type="submit" value="Cancel Event"/>
+            <button type="submit" class="btn">Concel Event</button> 
         </form>
-    </section>
-    <br>
-    <hr>
-    <form th:action="@{/logout}" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        <input type="submit" value="log out"/>
-    </form>
+    </div>
 </section>
 </body>
 </html>

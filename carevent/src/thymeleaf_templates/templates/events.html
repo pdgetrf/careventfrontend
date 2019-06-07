@@ -1,34 +1,40 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Events Management</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!-- <link rel="stylesheet" type="text/css" href="../static/css/style.css"/> -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Events</h1>
-<a href="/">Home</a>
-<br>
-<br>
-<span th:text="${'Welcome ' + userName}"></span>
-<table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Venue</th>
-        <th>Host</th>
-        <th>Status</th>
-    </tr>
-    <tr th:each="event : ${events}">
-        <td><a th:text="${event.id}" th:href="@{|/event/${event.id}|}"></a></td>
-        <td th:text="${event.name}"></td>
-        <td th:text="${event.date}"></td>
-        <td th:text="${event.description}"></td>
-        <td th:text="${event.venue.name}"></td>
-        <td th:text="${event.creater.name}"></td>
-        <td th:text="${event.status}"></td>
-    </tr>
-</table>
+    <header>
+        <div class="container flexbox align-center">
+            <h1><a href="/"><img src="../static/img/logo.png" alt="Car Logo" height="50"/></a></h1>
+            <h2>Events</h2>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button class="btn" type="submit">Log Out</button>
+            </form>
+        </div>
+    </header>
+    <section id="events">
+        <div class="container table">
+            <ul class="head">
+                <li>Id</li>
+                <li>Name</li>
+                <li>Date</li>
+                <li>Description</li>
+                <li>Venue</li>
+                <li>Host</li>
+                <li>Status</li>
+            </ul>
+            <ul th:each="event : ${events}" class="flexbox align-center">
+                <li><a th:text="${event.id}" th:href="@{|/event/${event.id}|}"></a></li>
+                <li th:text="${event.name}"></li>
+                <li th:text="${event.date}"></li>
+                <li th:text="${event.description}"></li>
+                <li th:text="${event.venue.name}"></li>
+                <li th:text="${event.creater.name}"></li>
+                <li th:text="${event.status}"></li>
+            </ul>
+        </div>
+    </section>
 </body>
 </html>
