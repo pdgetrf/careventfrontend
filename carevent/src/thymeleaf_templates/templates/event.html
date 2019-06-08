@@ -88,7 +88,7 @@
         </div>
     </div>
 </section>
-<section>
+<section th:if="${isLoggedIn and registerOpen}">
     <div class="container">
         <h3>Invite a photographer</h3>
         <form action="#" th:action="@{/registration/event/{id}(id=${event.id})}" th:object="${newregistration}"
