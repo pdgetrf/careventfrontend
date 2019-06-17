@@ -3,28 +3,41 @@
 <head>
     <title>Registration Management</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/style.css"/> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<p1>Photographer Registrations</p1>
-<table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Event</th>
-        <th>Photographer</th>
-        <th>Allocation (Free spot)</th>
-        <th>Available Spot</th>
-        <th>Order Price (Unit)</th>
-        <th>Status</th>
-    </tr>
-    <tr th:each="registration: ${registrations}">
-        <td><a th:text="${registration.id}" th:href="@{|/registration/${registration.id}|}"></a></td>
-        <td th:text="${registration.event.name}"></td>
-        <td th:text="${registration.photographer.name}"></td>
-        <td th:text="${registration.allocation}"></td>
-        <td th:text="${registration.allocation}-${registration.getSecuredOrders().size()}"></td>
-        <td th:text="${registration.orderCostSetting.getSpotFeeAmount()} + '(' + ${registration.orderCostSetting.getCurrency()} + ')'"></td>
-        <td th:text="${registration.status}"></td>
-    </tr>
-</table>
+    <header>
+        <div class="container flexbox align-center">
+            <h1><a href="/"><img src="../static/img/logo.png" alt="Car Logo" height="50"/></a></h1>
+            <h2>Photographer Registrations</h2>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button class="btn" type="submit">Log Out</button>
+            </form>
+        </div>
+    </header>
+    <section>
+        <div class="container table">
+            <ul class="head">
+                <li>Id</li>
+                <li>Event</li>
+                <li>Photographer</li>
+                <li>Allocation (Free spot)</li>
+                <li>Available Spot</li>
+                <li>Order Price (Unit)</li>
+                <li>Status</li>
+            </ul>
+            <ul th:each="registration: ${registrations}">
+                <li><a th:text="${registration.id}" th:href="@{|/registration/${registration.id}|}"></a></li>
+                <li th:text="${registration.event.name}"></li>
+                <li th:text="${registration.photographer.name}"></li>
+                <li th:text="${registration.allocation}"></li>
+                <li th:text="${registration.allocation}-${registration.getSecuredOrders().size()}"></li>
+                <li th:text="${registration.orderCostSetting.getSpotFeeAmount()} + '(' + ${registration.orderCostSetting.getCurrency()} + ')'"></li>
+                <li th:text="${registration.status}"></li>
+            </ul>
+        </div>
+    </section>
 </body>
 </html>

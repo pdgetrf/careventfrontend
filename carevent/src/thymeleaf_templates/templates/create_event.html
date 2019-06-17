@@ -3,31 +3,47 @@
 <head>
     <title>Create A new Event</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"/>
+    <!-- <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/> -->
 </head>
 <body>
-<h1>Create A new Event</h1>
-<br>
-<section th:if="${isLoggedIn}">
-    <hr>
-    <form action="#" th:action="@{/event}" th:object="${newEvent}" method="post" enctype="multipart/form-data">
-        <p>Name: <input type="text" th:field="*{name}"/></p>
-        <p>DATE: <input type="datetime-local" th:field="*{date}"/></p>
-        <p>Registration Closure Hours: <input type="number" min="0" max="72" th:field="*{registrationClosureHours}"/></p>
-        <p>Description: <input type="text" th:field="*{description}"/></p>
-        <p>Location:</p>
-        <select th:field="*{venue.name}">
-            <option th:each="venue: ${venues}"
-                    th:value="${venue}"
-                    th:text="${venue}"/>
-        </select>
-        <p>URL: <input type="text" th:field="*{externalURL}"/></p>
-        <p><input type="hidden" th:id="creater.loginName" th:name="creater.loginName"
-                  th:value="${loggedInAs.loginName}"/></p>
-        <input type="file" name="file" accept="image/*">
-        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-    </form>
-    <br>
-    <hr>
-</section>
+    <header>
+        <div class="container flexbox align-center">
+            <h1><a href="/"><img src="../static/img/logo.png" alt="Car Logo" height="50"/></a></h1>
+            <h2>Create A new Event</h2>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button class="btn" type="submit">Log Out</button>
+            </form>
+        </div>
+    </header>
+    <section th:if="${isLoggedIn}">
+        <div class="container">
+            <form action="#" th:action="@{/event}" th:object="${newEvent}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:id="creater.loginName" th:name="creater.loginName" th:value="${loggedInAs.loginName}"/>
+                <label>Name:</label>
+                <input type="text" th:field="*{name}"/>
+                <label>DATE:</label>
+                <input type="datetime-local" th:field="*{date}"/>
+                <label>Registration Closure Hours:</label>
+                <input type="number" min="0" max="72" th:field="*{registrationClosureHours}"/>
+                <label>Description:</label>
+                <input type="text" th:field="*{description}"/>
+                <label>Location:</label>
+                <select th:field="*{venue.name}">
+                    <option th:each="venue: ${venues}" th:value="${venue}" th:text="${venue}"></option>
+                </select>
+                <label>URL:</label>
+                <input type="text" th:field="*{externalURL}"/>
+                <br/>
+                <br/>
+                <input type="file" name="file" accept="image/*">
+                <br/>
+                <br/>
+                <button type="submit" class="btn">Submit</button>
+                <button type="reset" class="btn">Reset</button>
+            </form>
+        </div>
+    </section>
 </body>
 </html>

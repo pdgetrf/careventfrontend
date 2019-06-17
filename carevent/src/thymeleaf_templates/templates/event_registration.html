@@ -3,64 +3,85 @@
 <head>
     <title>Registration Management</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/style.css"/> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Photographer Registration</h1>
-<table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Event</th>
-        <th>Photographer</th>
-        <th>Allocation</th>
-        <th>Free Spot</th>
-        <th>Order Price (Unit)</th>
-        <th>Status</th>
-    </tr>
-    <tr>
-        <td th:text="${registration.id}"></td>
-        <td th:text="${registration.event.name}"></td>
-        <td th:text="${registration.photographer.name}"></td>
-        <td th:text="${registration.allocation}"></td>
-        <td th:text="${registration.allocation}-${registration.getSecuredOrders().size()}"></td>
-        <td th:text="${registration.orderCostSetting.getSpotFeeAmount()} + '(' + ${registration.orderCostSetting.getCurrency()} + ')'"></td>
-        <td th:text="${registration.status}"></td>
-    </tr>
-</table>
-<hr>
-<h2>Orders</h2>
-<table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Client</th>
-        <th>Status</th>
-    </tr>
-    <tr th:each="order: ${registration.orders}">
-        <td><a th:text="${order.id}" th:href="@{|/eventorder/${order.id}|}"></a></td>
-        <td th:text="${order.client.name}"></td>
-        <td th:text="${order.getOrderStatus().name()}"></td>
-    </tr>
-</table>
-<hr>
-<h2 th:if="${isOwner}">You are the owner of the registration</h2>
-<h2 th:if="${hasOrdered and !isOwner}">You have an order with this registration</h2>
-<section th:if="${!hasOrdered and !isOwner and registerOpen}">
-    <h2>Order closing in <a th:text="${registrationClosureHour}"/> hours</h2>
-    <h2>Create a new order</h2>
-    <form action="#" th:action="@{/eventorder/registration/{id}(id=${registration.id})}" th:object="${neweventorder}"
-          method="post" enctype="multipart/form-data">
-        <p>Name: <input type="hidden" th:id="client.name" th:name="client.name" th:value="${loggedInAs.name}"/></p>
-        <p>Description: <input type="text" name="desc"/></p>
-        <p>Car photo: <input type="file" name="file" accept="image/*"/></p>
-        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-    </form>
-</section>
-<section th:if="${!registerOpen}">
-    <p2>Order request closed</p2>
-</section>
-<section th:if="${isOwner && notCancelled}">
-    <form th:action="@{/registration/cancel/{id}(id=${registration.id})}" method="post">
-        <input type="submit" value="Cancel Registration"/>
-    </form>
+    <header>
+        <div class="container flexbox align-center">
+            <h1><a href="/"><img src="../static/img/logo.png" alt="Car Logo" height="50"/></a></h1>
+            <h2>Photographer Registration</h2>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button class="btn" type="submit">Log Out</button>
+            </form>
+        </div>
+    </header>
+    <section>
+        <div class="container table">
+            <ul class="head">
+                <li>Id</li>
+                <li>Event</li>
+                <li>Photographer</li>
+                <li>Allocation</li>
+                <li>Free Spot</li>
+                <li>Order Price (Unit)</li>
+                <li>Status</li>
+            </ul>
+            <ul>
+                <li th:text="${registration.id}"></li>
+                <li th:text="${registration.event.name}"></li>
+                <li th:text="${registration.photographer.name}"></li>
+                <li th:text="${registration.allocation}"></li>
+                <li th:text="${registration.allocation}-${registration.getSecuredOrders().size()}"></li>
+                <li th:text="${registration.orderCostSetting.getSpotFeeAmount()} + '(' + ${registration.orderCostSetting.getCurrency()} + ')'"></li>
+                <li th:text="${registration.status}"></li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <div class="container table">
+            <h2>Orders</h2>
+            <ul class="head">
+                <li>Id</li>
+                <li>Client</li>
+                <li>Status</li>
+            </ul>
+            <ul th:each="order: ${registration.orders}">
+                <li><a th:text="${order.id}" th:href="@{|/eventorder/${order.id}|}"></a></li>
+                <li th:text="${order.client.name}"></li>
+                <li th:text="${order.getOrderStatus().name()}"></li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h2 th:if="${isOwner}">You are the owner of the registration</h2>
+            <h2 th:if="${hasOrdered and !isOwner}">You have an order with this registration</h2>
+        </div>
+        <div class="container" th:if="${!hasOrdered and !isOwner and registerOpen}">
+            <h2>Order closing in <a th:text="${registrationClosureHour}"/> hours</h2>
+            <h2>Create a new order</h2>
+            <form action="#" th:action="@{/eventorder/registration/{id}(id=${registration.id})}" th:object="${neweventorder}"
+            method="post" enctype="multipart/form-data">
+            <label>Name: </label>
+            <input type="hidden" th:id="client.name" th:name="client.name" th:value="${loggedInAs.name}"/>
+            <label>Description: </label>
+            <input type="text" name="desc"/>
+            <label>Car Photo: </label>
+            <input type="file" name="file" accept="image/*"/>
+            <button type="submit" class="btn">Submit</button>
+            <button type="reset" class="btn">Reset</button>
+        </form>
+    </div>
+    <div class="container" th:if="${!registerOpen}">
+        <h3>Order request closed</h3>
+    </div>
+    <div class="container" th:if="${isOwner && notCancelled}">
+        <form th:action="@{/registration/cancel/{id}(id=${registration.id})}" method="post">
+            <button type="submit" class="btn">Cancel Registration</button>
+        </form>
+    </div>
 </section>
 </body>
 </html>

@@ -3,8 +3,14 @@
 <head>
     <title>Oooops</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/style.css"/> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<p th:text="${errorMessage}"/>
+    <section>
+        <div class="container">
+            <p th:text="${errorMessage}"/>
+        </div>
+    </section>
 </body>
 </html>
