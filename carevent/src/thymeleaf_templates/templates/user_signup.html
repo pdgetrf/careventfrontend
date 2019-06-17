@@ -10,7 +10,7 @@
 <body>
     <section id="login" style="height: 500px">
             <a href="/">
-                <img src="../static/img/logo.png" alt="Car Logo" height="100"/>
+                <img src="/img/logo.png" alt="Car Logo" height="100"/>
             </a>
 <form th:action="@{/user/signup}" th:object="${newuser}" method="post" enctype="multipart/form-data">
     <div><label> User Name : </label><input type="text" th:field="*{name}"/></div>
