@@ -60,5 +60,27 @@
                 </ul>
         </div>
     </section>
+    <section id="message">
+	    <div class="container table">
+			<h3>Messaging</h3>
+			<ul class="head">
+				    <li>Id</li>
+					<li>From</li>
+					<li>Title</li>
+					<li>Status</li>
+					<li>Date</li>
+				</ul>
+			<ul th:each="message: ${messages}">
+				    <li><a th:text="${message.id}" th:href="@{|/message/${message.id}|}"></a></li>
+					<li th:text="${message.getSender().getName()}"></li>
+					<li th:text="${message.status}"></li>
+					<li th:text="${message.getContent().messageTitle}"></li>
+					<li th:text="${message.sendDate}"></li>
+				</ul>
+            <div class="container">
+                <a href="/message">Send a message</a>
+            </div>
+		</div>
+    </section>
 </body>
 </html>

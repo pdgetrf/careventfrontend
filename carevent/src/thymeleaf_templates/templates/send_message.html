@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Send a Message</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<form th:action="@{/message}" th:object="${newmessage}" method="post" enctype="multipart/form-data">
+    <select th:field="${dest.loginName}">
+        <option th:each="user : ${users}"
+                th:value="${user.getLoginName()}"
+                th:text="${user.getName()}"/>
+    </select>
+    <div><label> Title : <input type="text" th:field="*{messageTitle}"/> </label></div>
+    <div><label> Message : <input type="text" th:field="*{messageBody}"/> </label></div>
+    <div><input type="submit" value="Send"/></div>
+</form>
+</body>
+</html>

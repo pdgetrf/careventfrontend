@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Message</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h2>From: <a th:text="${sender.name}"/></h2>
+<h2>Date: <a th:text="${date}"/></h2>
+<h2>Title: <a th:text="${title}"/></h2>
+<h2>Content: <a th:text="${content}"/></h2>
+<h2>Status: <a th:text="${status.toString()}"/></h2>
+<hr>
+<h2>Reply</h2>
+<form th:action="@{/message/{id}(id=${sender.id})}" th:object="${newmessage}" method="post" enctype="multipart/form-data">
+    <p>Title: <input type="text" th:id="messageTitle" th:name="messageTitle" th:value="${title}"/></p>
+    <p>Message : <input type="text" th:field="*{messageBody}"/></p>
+    <p><input type="submit" value="Send"/></p>
+</form>
+</body>
+</html>
